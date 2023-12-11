@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello RequestController!{% endblock %}
+
+{% block body %}
+    <h2>Request</h2>
+
+    <p>
+        <a href="{{ path('request_index', {'name': 'john'}) }}">John Doe</a> -
+        <a href="{{ path('request_index', {'name': 'jane'}) }}">Jane Doe</a>
+    </p>
+
+    <p>Bonjour {{ fullname }}</p>
+
+    <hr />
+
+    <h2>Les sessions</h2>
+
+    <p>
+        <a href="{{ path('request_session') }}">Ajouter une pomme dans le panier</a>
+    </p>
+
+    <p>Panier: {{ panier }} - <a href="{{ path('request_session_clear') }}">
+            Vider le panier</a></p>
+{% endblock %}
