@@ -16,6 +16,10 @@
 
     <h2>Les sessions</h2>
 
+    {% for message in app.flashes('success') %}
+        <p style="color: limegreen">{{ message }}</p>
+    {% endfor %}
+
     <p>
         <a href="{{ path('request_session') }}">Ajouter une pomme dans le panier</a>
     </p>

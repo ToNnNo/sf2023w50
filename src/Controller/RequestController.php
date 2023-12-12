@@ -39,6 +39,8 @@ class RequestController extends AbstractController
         $session = $request->getSession();
         $session->set('panier', 'Pomme');
 
+        $this->addFlash('success', "La pomme a bien été ajouté dans le panier");
+
         return $this->redirectToRoute('request_index');
     }
 
@@ -48,6 +50,8 @@ class RequestController extends AbstractController
         $session = $request->getSession();
         // $session->clear();
         $session->remove('panier');
+
+        $this->addFlash('success', "La panier a été vidé");
 
         return $this->redirectToRoute('request_index');
     }
