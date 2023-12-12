@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello TwigController!{% endblock %}
+
+{% block body %}
+    <h2>Twig</h2>
+
+    <p>1 + 2 = {{ 1 + 2 }}</p>
+
+    <p>Bonjour {{ name }} !</p>
+
+    <div>
+        <h3>Tags: for</h3>
+        <ul>
+            {% for value in 1..4 %}
+                <li>{{ value }}</li>
+            {% endfor %}
+        </ul>
+
+        {% for value in [] %}
+            {{ value }}
+        {% else %}
+            <p style="color: #fa0">Aucune valeur dans le tableau</p>
+        {% endfor %}
+
+        <dl>
+            {% for key, value in {'firstname': "John", 'lastname': "Doe"} %}
+                <dt>{{ key }}</dt>
+                <dd>{{ value }}</dd>
+            {% endfor %}
+        </dl>
+    </div>
+
+    <div>
+        <h3>Tags: if</h3>
+        {% set temperature = 31 %}
+
+        {% if temperature > 30 %}
+            <p>Il fait très chaud</p>
+        {% elseif temperature > 20 %}
+            <p>Il fait chaud</p>
+        {% else %}
+            <p>Il fait froid</p>
+        {% endif %}
+
+        {# === -> same as #}
+        {% if name is same as "Stéphane" %}
+            <p>Bonjour {{ name }} !</p>
+        {% endif %}
+
+    </div>
+
+    <div>
+        <h3>Filtres</h3>
+
+        <p>{{ html }}</p>
+
+        <p>{{ html|raw }}</p>
+
+        <p>{{ date|date("\\l\\e d-m-Y à H-i-s") }}</p>
+    </div>
+
+    <div>
+        <h3>Fonctions</h3>
+
+        <p>url: {{ url('twig_index') }}</p>
+        <p>path: {{ path('twig_index') }}</p>
+
+        {# affiche directement sur la page #}
+        {{ dump(date) }}
+
+        {# affiche dans le profiler #}
+        {% dump(date) %}
+    </div>
+
+{% endblock %}
