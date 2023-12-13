@@ -7,12 +7,15 @@
     <div class="row">
         {% for post in posts %}
             <div class="col-4">
-                <article>
-                    <h2>{{ post.title }}</h2>
-                    <div>
-                        {{ post.content|striptags|u.truncate(15, '...') }}
+                <article class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ post.title }}</h5>
+                        <p class="card-text">
+                            {{ post.content|striptags|u.truncate(75, '...') }}
+                        </p>
+                        <a href="{{ path('post_show', {'slug': post.slug}) }}"
+                           class="btn btn-outline-primary btn-sm">Lire l'article complet</a>
                     </div>
-                    <a href="{{ path('post_show', {'slug': post.slug}) }}">Lire l'article complet</a>
                 </article>
             </div>
         {% endfor %}

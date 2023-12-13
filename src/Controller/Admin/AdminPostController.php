@@ -3,11 +3,14 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Post;
+use App\Form\PostType;
 use App\Repository\PostRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 /**
  * /formation/offre-special -> priority 0
@@ -49,6 +52,34 @@ class AdminPostController extends AbstractController
             'post' => $post
         ]);
     }
+
+    #[Route('/add', name: 'add')]
+    public function add(Request $request, SluggerInterface $slugger): Response
+    {
+        $post = new Post();
+        $form = $this->createForm(PostType::class, $post);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // $post = $form->getData(); // $post est une instance Post
+            $post->setCreatedAt(new \DateTimeImmutable());
+            $post->setSlug($slugger->slug($post->getTitle()));
+
+            $this->entityManager->persist($post);
+            $this->entityManager->flush();
+
+            $this->addFlash('success',
+                sprintf("L'article \"%s\" a bien été enregistré", $post->getTitle())
+            );
+
+            return $this->redirectToRoute('admin_post_index');
+        }
+
+        return $this->render('admin/admin_post/add.html.twig', [
+            'formView' => $form, // $form->createView()
+        ]);
+    }
+
 
     #[Route('/static/insert', name: 'static_insert')]
     public function staticInsert(): Response
