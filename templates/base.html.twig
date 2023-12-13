@@ -24,8 +24,20 @@
                 <a href="{{ path('request_index') }}" class="nav-link">Request</a>
                 <a href="{{ path('error_index') }}" class="nav-link">Erreurs</a>
                 <a href="{{ path('twig_index') }}" class="nav-link">Twig</a>
+                <a href="{{ path('post_index') }}" class="nav-link">Articles</a>
+
+                <span class="nav-text">|</span>
+                <a href="{{ path('admin_post_index') }}" class="nav-link">Admin Articles</a>
             </nav>
             <main>
+                {% for type, messages in app.flashes %}
+                    <div class="alert alert-{{ type }}">
+                        {% for message in messages %}
+                            {{ message }}
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+
                 <div class="row">
                     <div class="col-9">
                         {% block body %}{% endblock %}

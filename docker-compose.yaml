@@ -1,0 +1,23 @@
+version: '3.7'
+services:
+    database:
+        image: 'mysql:8'
+        volumes:
+            - sf2023w50:/var/lib/mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: sf2023w50
+        ports:
+            - '3306:3306'
+    pma:
+        depends_on:
+            - database
+        image: phpmyadmin:5
+        ports:
+            - '8080:80'
+        environment:
+            PMA_HOST: database
+            MYSQL_ROOT_PASSWORD: root
+
+volumes:
+    sf2023w50:
