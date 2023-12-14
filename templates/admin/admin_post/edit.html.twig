@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier un article{% endblock %}
+
+{% block body %}
+
+    {{ form_start(formView) }}
+        {{ form_rest(formView) }}
+
+        <button class="btn btn-outline-primary">Modifier</button>
+    {{ form_end(formView) }}
+
+{% endblock %}

@@ -32,6 +32,11 @@
                 <td class="text-end">
                     <a href="{{ path('admin_post_detail', {'id': post.id}) }}" class="btn btn-outline-primary btn-sm">
                         Voir le détail de l'article</a>
+
+                    {% if is_granted('POST_EDIT', post) %}
+                        <a href="{{ path('admin_post_edit', {'id': post.id}) }}" class="btn btn-outline-primary btn-sm">
+                            Modifier l'article</a>
+                    {% endif %}
                 </td>
             </tr>
         {% endfor %}

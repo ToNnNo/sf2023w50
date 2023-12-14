@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Post;
 use App\Form\PostType;
 use App\Repository\PostRepository;
+use App\Security\Voter\EditPostVoter;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -86,6 +87,30 @@ class AdminPostController extends AbstractController
         ]);
     }
 
+    #[Route('/{id}/edit', name: 'edit')]
+    public function edit(Request $request, Post $post): Response
+    {
+        $this->denyAccessUnlessGranted(EditPostVoter::EDIT, $post);
+
+        $form = $this->createForm(PostType::class, $post);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $this->entityManager->flush();
+
+            $this->addFlash('success',
+                sprintf("L'article \"%s\" a bien été modifié", $post->getTitle())
+            );
+
+            // pattern Post-redirect-get
+            return $this->redirectToRoute('admin_post_edit', ['id' => $post->getId()]);
+        }
+
+        return $this->render('admin/admin_post/edit.html.twig', [
+            'formView' => $form,
+        ]);
+    }
 
     #[Route('/static/insert', name: 'static_insert')]
     public function staticInsert(): Response
