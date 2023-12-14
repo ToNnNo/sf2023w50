@@ -17,7 +17,9 @@ class PostType extends AbstractType
                 'label' => 'title <sup style="color: red">*</sup>',*/
                 'help' => "Le titre ne doit pas avoir plus de 100 caractères"
             ])
-            ->add('content')
+            ->add('content', options: [
+                'attr' => ['rows' => 8]
+            ])
         ;
     }
 
