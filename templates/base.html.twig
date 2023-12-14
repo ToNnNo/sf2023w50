@@ -27,8 +27,18 @@
                 <a href="{{ path('post_index') }}" class="nav-link">Articles</a>
 
                 <span class="nav-link disabled">|</span>
-                <a href="{{ path('admin_post_index') }}" class="nav-link">Admin Articles</a>
+                {% if not app.user %}
+                    <a href="{{ path('authentication_login') }}" class="nav-link">Connexion</a>
+                {% else %}
+                    <span class="nav-link disabled">Bonjour {{ app.user.username }}</span>
+                    <a href="{{ path('authentication_logout') }}" class="nav-link">Déconnexion</a>
+
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('admin_post_index') }}" class="nav-link">Admin Articles</a>
+                    {% endif %}
+                {% endif %}
             </nav>
+
             <main>
                 {% for type, messages in app.flashes %}
                     <div class="alert alert-{{ type }}">

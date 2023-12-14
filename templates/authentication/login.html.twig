@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block body %}
+
+    <h2>Formulaire d'authentification</h2>
+
+    {% if error %}
+        <div class="alert alert-danger">
+            {{ error.message }}
+        </div>
+    {% endif %}
+
+    <form method="post" action="{{ path('authentication_login') }}">
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" />
+
+        <div class="mb-3">
+            <label for="username">Username: </label>
+            <input type="text" id="username" name="_username" class="form-control" value="{{ username }}" />
+        </div>
+        <div class="mb-3">
+            <label for="password">Password: </label>
+            <input type="password" id="password" name="_password" class="form-control" />
+        </div>
+
+        <button class="btn btn-outline-primary">Sign In</button>
+    </form>
+
+
+{% endblock %}
