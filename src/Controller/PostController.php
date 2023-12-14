@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Post;
 use App\Repository\PostRepository;
+use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,7 +21,7 @@ class PostController extends AbstractController
     #[Route('', name: 'index')]
     public function index(): Response
     {
-        $posts = $this->postRepository->findAll();
+        $posts = $this->postRepository->findAllWithUser();
 
         return $this->render('post/index.html.twig', [
             'posts' => $posts
@@ -28,7 +29,10 @@ class PostController extends AbstractController
     }
 
     #[Route('/{slug}', name: 'show')]
-    public function show(Post $post): Response
+    public function show(
+        #[MapEntity(expr: 'repository.findBySlug(slug)')]
+        Post $post
+    ): Response
     {
 
         return $this->render('post/show.html.twig', [

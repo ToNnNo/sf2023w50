@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Post;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -19,6 +20,31 @@ class PostRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Post::class);
+    }
+
+    public function findBySlug(string $slug): ?Post
+    {
+        // select * from post where slug = :slug
+
+        return $this->createQueryBuilder('p')
+            ->select(['p', 'u'])
+            ->leftJoin('p.user', 'u')
+            ->where('p.slug = :slug')
+            ->setParameter('slug', $slug)
+            ->getQuery()
+            ->getOneOrNullResult()
+            ;
+    }
+
+    public function findAllWithUser(): array
+    {
+         return $this->createQueryBuilder('p')
+            ->select(['p', 'u'])
+            ->leftJoin('p.user', 'u')
+            ->orderBy('p.createdAt', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
     }
 
 //    /**

@@ -5,7 +5,7 @@
 {% block body %}
 
     <h1>{{ post.title }}</h1>
-    <p class="small">Article créé le {{ post.createdAt|date }}</p>
+    <p class="small">Article rédigé le {{ post.createdAt|date }} par {{ post.user.username }}</p>
 
     <div>
         {{ post.content|raw }}

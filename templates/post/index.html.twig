@@ -13,6 +13,7 @@
                         <p class="card-text">
                             {{ post.content|striptags|u.truncate(75, '...') }}
                         </p>
+                        <p class="small">Auteur: {{ post.user.username }}</p>
                         <a href="{{ path('post_show', {'slug': post.slug}) }}"
                            class="btn btn-outline-primary btn-sm">Lire l'article complet</a>
                     </div>
