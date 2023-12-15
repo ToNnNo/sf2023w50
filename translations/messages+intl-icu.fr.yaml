@@ -1,0 +1,16 @@
+say_hello: 'Bonjour {name} !'
+
+num_of_apples: >-
+  {apples, plural,
+    =0    {Il n'y a pas de pomme}
+    =1    {Il y a une pomme}
+    other {Il y a # pommes}
+  } dans le panier
+
+invitation: >-
+  {gender, select,
+    female    {Elle a été invitée}
+    male      {Il a été invité}
+    multiple  {Ils ont été invités}
+    other     {Ils ont été invités}
+  }

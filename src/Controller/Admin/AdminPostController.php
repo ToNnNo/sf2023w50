@@ -18,7 +18,6 @@ use Symfony\Component\String\Slugger\SluggerInterface;
  * /formation/offre-special -> priority 0
  * /formation/{slug}        -> priority -1
  */
-
 #[Route('/admin/post', name: 'admin_post_', requirements: ['id' => '\d+'])]
 class AdminPostController extends AbstractController
 {
@@ -46,7 +45,7 @@ class AdminPostController extends AbstractController
     {
         $post = $this->postRepository->find($id);
 
-        if(!$post) {
+        if (!$post) {
             throw $this->createNotFoundException();
         }
 
@@ -61,7 +60,7 @@ class AdminPostController extends AbstractController
     {
         // $this->isGranted() // retourne un boolean
 
-        $this->denyAccessUnlessGranted('ROLE_SUPER_ADMIN');
+        // $this->denyAccessUnlessGranted('ROLE_SUPER_ADMIN');
 
         $post = new Post();
         $form = $this->createForm(PostType::class, $post);
@@ -71,6 +70,7 @@ class AdminPostController extends AbstractController
             // $post = $form->getData(); // $post est une instance Post
             $post->setCreatedAt(new \DateTimeImmutable());
             $post->setSlug($slugger->slug($post->getTitle()));
+            $post->setUser($this->getUser());
 
             $this->entityManager->persist($post);
             $this->entityManager->flush();
@@ -119,7 +119,8 @@ class AdminPostController extends AbstractController
             ->setTitle('Initiation à Symfony')
             ->setSlug('initiation-a-symfony')
             ->setContent("<p>Symfony c'est vraiment bien</p>")
-            ->setCreatedAt(new \DateTimeImmutable());
+            ->setCreatedAt(new \DateTimeImmutable())
+            ->setUser($this->getUser());
 
         $this->entityManager->persist($post);
         $this->entityManager->flush();

@@ -2,13 +2,15 @@
 
 {% block title %}Connexion{% endblock %}
 
+{% trans_default_domain 'authentication' %}
+
 {% block body %}
 
     <h2>Formulaire d'authentification</h2>
 
     {% if error %}
         <div class="alert alert-danger">
-            {{ error.message }}
+            {{ error.messageKey|trans(error.messageData, 'security') }}
         </div>
     {% endif %}
 
@@ -16,16 +18,15 @@
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" />
 
         <div class="mb-3">
-            <label for="username">Username: </label>
+            <label for="username">{% trans %}Username{% endtrans %}:</label>
             <input type="text" id="username" name="_username" class="form-control" value="{{ username }}" />
         </div>
         <div class="mb-3">
-            <label for="password">Password: </label>
+            <label for="password">{% trans %}Password{% endtrans %}: </label>
             <input type="password" id="password" name="_password" class="form-control" />
         </div>
 
-        <button class="btn btn-outline-primary">Sign In</button>
+        <button class="btn btn-outline-primary">{% trans %}Sign In{% endtrans %}</button>
     </form>
-
 
 {% endblock %}

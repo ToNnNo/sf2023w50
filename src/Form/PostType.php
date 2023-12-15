@@ -15,9 +15,11 @@ class PostType extends AbstractType
             ->add('title', options: [
                 /*'label_html' => true,
                 'label' => 'title <sup style="color: red">*</sup>',*/
-                'help' => "Le titre ne doit pas avoir plus de 100 caractères"
+                'label' => 'post.title.label',
+                'help' =>  'post.title.help', //"Le titre ne doit pas avoir plus de 100 caractères"
             ])
             ->add('content', options: [
+                'label' => 'post.content.label',
                 'attr' => ['rows' => 8]
             ])
         ;
@@ -27,7 +29,7 @@ class PostType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Post::class,
-            // 'required' => false
+            'required' => false
         ]);
     }
 }

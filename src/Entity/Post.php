@@ -16,7 +16,7 @@ class Post
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank]
+    #[Assert\NotBlank(message: 'post.title.not_blank')]
     #[Assert\Length(min: 2, max: 100)]
     private ?string $title = null;
 

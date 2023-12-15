@@ -1,0 +1,10 @@
+hello: Salut
+message.welcome: Bienvenue sur notre application
+message.hello: Bonjour %name%, comment allez vous ?
+
+post:
+  title:
+    label: Titre de l'article
+    help: Le titre ne doit pas avoir plus de 100 caractères
+  content:
+    label: Contenu de l'article

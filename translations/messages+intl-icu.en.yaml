@@ -1,0 +1,16 @@
+say_hello: 'Hello {name} !'
+
+num_of_apples: >-
+  {apples, plural,
+    =0    {There are no apples}
+    =1    {There is one apple}
+    other {There are # apples}
+  } in the cart
+
+invitation: >-
+  {gender, select,
+    female    {She was invited}
+    male      {He was invited}
+    multiple  {They were invited}
+    other     {They were invited}
+  }

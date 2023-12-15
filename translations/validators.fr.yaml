@@ -1,0 +1,3 @@
+post:
+  title:
+    not_blank: Le titre de l'article est obligatoire

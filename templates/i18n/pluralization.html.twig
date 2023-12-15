@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello I18nController!{% endblock %}
+
+{% block body %}
+
+    <h2>Traduction + Pluralisation</h2>
+
+    <div class="mb-3">
+        <a href="{{ path('i18n_pluralization', {_locale: 'fr'}) }}">Français</a> -
+        <a href="{{ path('i18n_pluralization', {_locale: 'en'}) }}">English</a>
+    </div>
+
+    <p>{{ 'say_hello'|trans({ 'name': 'Louis' }) }}</p>
+
+    <hr />
+
+    <p>{{ 'num_of_apples'|trans({'apples': 0}) }}</p>
+    <p>{{ 'num_of_apples'|trans({'apples': 1}) }}</p>
+    <p>{{ 'num_of_apples'|trans({'apples': 10}) }}</p>
+
+    <hr />
+
+    <p>{{ 'invitation'|trans({'gender': 'female'}) }}</p>
+    <p>{{ 'invitation'|trans({'gender': 'male'}) }}</p>
+    <p>{{ 'invitation'|trans({'gender': 'multiple'}) }}</p>
+
+{% endblock %}
